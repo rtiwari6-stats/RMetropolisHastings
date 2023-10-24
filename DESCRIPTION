@@ -4,8 +4,7 @@ Title: What the Package Does (Title Case)
 Version: 0.1.0
 Author: c(person("Skylar", "Liu", email = "slliu@tamu.edu", role = c("aut", "cre")), person("Rohan", "Tiwari",email = "rtiwari6@tamu.edu",role = c("aut", "cre")))
 Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
+Description: This package simulates samples from a target probability distribution using the Metropolis-Hastings algorithm.
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
