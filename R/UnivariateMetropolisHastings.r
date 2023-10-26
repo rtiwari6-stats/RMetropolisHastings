@@ -7,16 +7,20 @@
 #' @param initial The staring value for the algorithm
 #' @param plot plot the values of x
 #' @param sigma standard deviation of the candidate generation density
+#' @param seed seed for generation of random samples
 #'
 #' @return a vector of samples
 #' @export
 #'
 #' @examples
 runivariatemh = function(targetdensity,  candidatedensity=c("Normal"),
-                         numIter=1000, initial=0.0, plot=FALSE, sigma=NULL){
+                         numIter=1000, initial=0.0, plot=FALSE, sigma=NUL, seed = 1001L){
   candidatedensity = match.arg(candidatedensity)
   #check sigma
-  if(sigma < 0){
+  if(is.null(sigma)){
+    stop('sigma must not be null')
+  }
+  if(sigma <= 0){
     stop("sigma must be positive")
   }
   #check target density
@@ -26,6 +30,7 @@ runivariatemh = function(targetdensity,  candidatedensity=c("Normal"),
 
   # initialize the x vector to capture the generated samples
   x = rep(initial, numIter)
+  set.seed(seed)
   #build the markov chain
   for(i in 2:numIter){
     # generate a  possible move in the markov chain
@@ -33,7 +38,11 @@ runivariatemh = function(targetdensity,  candidatedensity=c("Normal"),
 
     #compute the acceptance probability
     #this is a special case because the candidate is symmetric
-    prob = min(1, targetdensity(nextVal) / targetdensity(x[i-1]))
+    prevDensity = targetdensity(x[i-1])
+    if(prevDensity == 0){
+      stop(paste('invalid value (0) returned by target density for x = ', x[i-1]))
+    }
+    prob = min(1, targetdensity(nextVal) / prevDensity)
     u = runif(1)
 
     #accept the sample with 'prob' probability

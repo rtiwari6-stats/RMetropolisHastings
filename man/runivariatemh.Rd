@@ -10,7 +10,8 @@ runivariatemh(
   numIter = 1000,
   initial = 0,
   plot = FALSE,
-  sigma = NULL
+  sigma = NUL,
+  seed = 1001L
 )
 }
 \arguments{
@@ -25,6 +26,8 @@ runivariatemh(
 \item{plot}{plot the values of x}
 
 \item{sigma}{standard deviation of the candidate generation density}
+
+\item{seed}{seed for generation of random samples}
 }
 \value{
 a vector of samples
