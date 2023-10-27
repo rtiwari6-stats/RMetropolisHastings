@@ -5,3 +5,7 @@ rcpp_hello <- function() {
     .Call(`_RMetropolisHastings_rcpp_hello`)
 }
 
+univariatemhnormalcpp <- function(targetDensity, numIter, initial, sigma) {
+    .Call(`_RMetropolisHastings_univariatemhnormalcpp`, targetDensity, numIter, initial, sigma)
+}
+
