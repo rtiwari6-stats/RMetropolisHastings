@@ -1,10 +1,8 @@
-#include <RcppArmadillo.h>
+#include <Rcpp.h>
 
 using namespace Rcpp;
-using namespace arma;
 
 // [[Rcpp::export]]
-
 NumericVector univariatemhnormalcpp(Function targetDensity, NumericVector numIter,
                                     NumericVector initial, NumericVector sigma) {
   // skip checks because they are done in R before call
