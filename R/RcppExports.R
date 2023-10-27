@@ -5,6 +5,11 @@ rcpp_hello <- function() {
     .Call(`_RMetropolisHastings_rcpp_hello`)
 }
 
+#' C++ function to generate samples using univariate normal candidate density
+#' @param targetDensity This is the probability density function from which sampling will be done. This should be a function of x.
+#' @param numIter This is the number of iterations to run the algorithm
+#' @param initial This is the starting value for the markov chain
+#' @param sigma This is the standard deviation for candidate generating univariate normal distribution.
 univariatemhnormalcpp <- function(targetDensity, numIter, initial, sigma) {
     .Call(`_RMetropolisHastings_univariatemhnormalcpp`, targetDensity, numIter, initial, sigma)
 }

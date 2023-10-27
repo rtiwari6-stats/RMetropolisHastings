@@ -2,6 +2,11 @@
 
 using namespace Rcpp;
 
+//' C++ function to generate samples using univariate normal candidate density
+//' @param targetDensity This is the probability density function from which sampling will be done. This should be a function of x.
+//' @param numIter This is the number of iterations to run the algorithm
+//' @param initial This is the starting value for the markov chain
+//' @param sigma This is the standard deviation for candidate generating univariate normal distribution.
 // [[Rcpp::export]]
 NumericVector univariatemhnormalcpp(Function targetDensity, NumericVector numIter,
                                     NumericVector initial, NumericVector sigma) {
