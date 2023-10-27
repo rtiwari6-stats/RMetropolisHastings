@@ -22,15 +22,15 @@ BEGIN_RCPP
 END_RCPP
 }
 // univariatemhnormalcpp
-NumericVector univariatemhnormalcpp(Function targetDensity, const NumericVector numIter, const NumericVector initial, const NumericVector sigma);
+NumericVector univariatemhnormalcpp(Function targetDensity, NumericVector numIter, NumericVector initial, NumericVector sigma);
 RcppExport SEXP _RMetropolisHastings_univariatemhnormalcpp(SEXP targetDensitySEXP, SEXP numIterSEXP, SEXP initialSEXP, SEXP sigmaSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< Function >::type targetDensity(targetDensitySEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type numIter(numIterSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type initial(initialSEXP);
-    Rcpp::traits::input_parameter< const NumericVector >::type sigma(sigmaSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type numIter(numIterSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type initial(initialSEXP);
+    Rcpp::traits::input_parameter< NumericVector >::type sigma(sigmaSEXP);
     rcpp_result_gen = Rcpp::wrap(univariatemhnormalcpp(targetDensity, numIter, initial, sigma));
     return rcpp_result_gen;
 END_RCPP
