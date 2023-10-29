@@ -1,4 +1,7 @@
-exportPattern("^[[:alpha:]]+")
+export(runivariatemh)
+export(cppunivariatemh)
+export(hello)
+export(rcpp_hello)
 importFrom(Rcpp, evalCpp)
 import(stats)
 useDynLib(RMetropolisHastings, .registration = TRUE)

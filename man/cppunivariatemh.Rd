@@ -2,7 +2,8 @@
 % Please edit documentation in R/UnivariateMetropolisHastingsincpp.r
 \name{cppunivariatemh}
 \alias{cppunivariatemh}
-\title{Sample data from a univariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.}
+\title{Sample data from a univariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.
+The use of this function is recommended when the target density function is in the predefined set of densities in the function's API.}
 \usage{
 cppunivariatemh(
   targetdensity = c("Exponential"),
@@ -34,4 +35,5 @@ a vector of samples
 }
 \description{
 Sample data from a univariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.
+The use of this function is recommended when the target density function is in the predefined set of densities in the function's API.
 }
