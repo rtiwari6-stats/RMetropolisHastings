@@ -5,7 +5,7 @@
 \title{Sample data from a univariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.}
 \usage{
 cppunivariatemh(
-  targetdensity,
+  targetdensity = c("Exponential"),
   candidatedensity = c("Normal"),
   numIter = 1000,
   initial = 0,

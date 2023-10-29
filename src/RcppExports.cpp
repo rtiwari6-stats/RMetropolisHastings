@@ -21,24 +21,35 @@ BEGIN_RCPP
     return rcpp_result_gen;
 END_RCPP
 }
-// univariatemhnormalcpp
-NumericVector univariatemhnormalcpp(Function targetDensity, NumericVector numIter, NumericVector initial, NumericVector sigma);
-RcppExport SEXP _RMetropolisHastings_univariatemhnormalcpp(SEXP targetDensitySEXP, SEXP numIterSEXP, SEXP initialSEXP, SEXP sigmaSEXP) {
+// targetDensityUnivarExp
+double targetDensityUnivarExp(float x);
+RcppExport SEXP _RMetropolisHastings_targetDensityUnivarExp(SEXP xSEXP) {
 BEGIN_RCPP
     Rcpp::RObject rcpp_result_gen;
     Rcpp::RNGScope rcpp_rngScope_gen;
-    Rcpp::traits::input_parameter< Function >::type targetDensity(targetDensitySEXP);
+    Rcpp::traits::input_parameter< float >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(targetDensityUnivarExp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// univariatemhexpnormalcpp
+NumericVector univariatemhexpnormalcpp(NumericVector numIter, NumericVector initial, NumericVector sigma);
+RcppExport SEXP _RMetropolisHastings_univariatemhexpnormalcpp(SEXP numIterSEXP, SEXP initialSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
     Rcpp::traits::input_parameter< NumericVector >::type numIter(numIterSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type initial(initialSEXP);
     Rcpp::traits::input_parameter< NumericVector >::type sigma(sigmaSEXP);
-    rcpp_result_gen = Rcpp::wrap(univariatemhnormalcpp(targetDensity, numIter, initial, sigma));
+    rcpp_result_gen = Rcpp::wrap(univariatemhexpnormalcpp(numIter, initial, sigma));
     return rcpp_result_gen;
 END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
     {"_RMetropolisHastings_rcpp_hello", (DL_FUNC) &_RMetropolisHastings_rcpp_hello, 0},
-    {"_RMetropolisHastings_univariatemhnormalcpp", (DL_FUNC) &_RMetropolisHastings_univariatemhnormalcpp, 4},
+    {"_RMetropolisHastings_targetDensityUnivarExp", (DL_FUNC) &_RMetropolisHastings_targetDensityUnivarExp, 1},
+    {"_RMetropolisHastings_univariatemhexpnormalcpp", (DL_FUNC) &_RMetropolisHastings_univariatemhexpnormalcpp, 3},
     {NULL, NULL, 0}
 };
 
