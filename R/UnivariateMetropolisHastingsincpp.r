@@ -1,8 +1,9 @@
 
 #' Sample data from a univariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.
 #' The use of this function is recommended when the target density function is in the predefined set of densities in the function's API.
-#' @param targetdensity This is the probability density function from which sampling will be done. This should be a function of x.
-#' @param candidatedensity This is the candidate generation density to be used
+#' @param targetdensity This is the probability density function from which sampling will be done. This should be one of the supported values:
+#' "Exponential"- Exponential distribution with lambda=1.
+#' @param candidatedensity This is the candidate generation density to be used. This should be one of the supported values
 #' @param numIter The number of samples to generate
 #' @param initial The staring value for the algorithm
 #' @param plot plot the values of x
