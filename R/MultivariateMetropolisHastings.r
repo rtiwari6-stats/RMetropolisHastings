@@ -20,7 +20,7 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   if(is.null(sigma_matrix)){
     stop('sigma matrix must not be null')
   }
-  if(any(sigma_matrix[]) <= 0){
+  if(any(sigma_matrix <= 0)){
     stop("sigma matrix must be positive")
   }
   #check target density
