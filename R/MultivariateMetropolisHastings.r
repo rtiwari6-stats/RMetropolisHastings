@@ -20,8 +20,8 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   if(is.null(sigma_matrix)){
     stop('sigma matrix must not be null')
   }
-  if(any(sigma_matrix <= 0)){
-    stop("sigma matrix must be positive")
+  if(any(diag(sigma_matrix) <= 0)){
+    stop("diagonal of sigma matrix must be positive")
   }
   #check target density
   if(is.null(targetdensity)){
@@ -31,4 +31,9 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   if(nrow(sigma_matrix) != length(initial_vec) | ncol(sigma_matrix) != length(initial_vec)){
     stop("number of rows and columns of sigma matrix must equal length of initial vector")
   }
+
+  # initialize the x matrix to capture the generated samples
+  x = matrix(rep(initial, numIter), nrow = numIter)
+  set.seed(seed)
+
 }
