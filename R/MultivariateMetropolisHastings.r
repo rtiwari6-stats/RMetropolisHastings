@@ -38,23 +38,23 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   #build the markov chain
   for(i in 2:numIter){
     # generate a  possible move in the markov chain
-    nextVal = rnorm(1, x[i-1], sigma)
+    nextVal = rnorm(1, x[, i-1], sigma_matrix)
 
     #compute the acceptance probability
     #this is a special case because the candidate is symmetric
-    prevDensity = targetdensity(x[i-1])
-    if(prevDensity == 0){
-      stop(paste('invalid value (0) returned by target density for x = ', x[i-1]))
+    prevDensity = targetdensity(x[, i-1])
+    if(all(prevDensity == 0)){
+      stop(paste('invalid value (0) returned by target density for x = ', x[, i-1]))
     }
     prob = min(1, targetdensity(nextVal) / prevDensity)
     u = runif(1)
 
     #accept the sample with 'prob' probability
     if(u <= prob){
-      x[i] = nextVal
+      x[, i] = nextVal
     }
     else{
-      x[i] = x[i-1]
+      x[, i] = x[, i-1]
     }
   }
 
