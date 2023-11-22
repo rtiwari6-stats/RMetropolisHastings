@@ -13,18 +13,22 @@
 #' @export
 #'
 #' @examples
-rmultivariatemh = function(targetdensity,  candidatedensity=c("Normal"),
-                         numIter=1000, initial=0.0, plot=FALSE, sigma_matrix=NULL, seed = 1001L){
+rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
+                         numIter = 1000, mean_vec = NULL, plot = FALSE, sigma_matrix = NULL, seed = 1001L){
   candidatedensity = match.arg(candidatedensity)
   #check sigma
   if(is.null(sigma_matrix)){
     stop('sigma matrix must not be null')
   }
-  if(any(sigma_matrix[] <= 0){
+  if(any(sigma_matrix[]) <= 0){
     stop("sigma matrix must be positive")
   }
   #check target density
   if(is.null(targetdensity)){
+    stop("Target density function must be provided")
+  }
+  #check mean_vec and sigma_matrix compatability
+  if(nrow(sigma_matrix) != length(mean_vec) | ncol(sigma_matrix) != length(mean_vec)){
     stop("Target density function must be provided")
   }
 }
