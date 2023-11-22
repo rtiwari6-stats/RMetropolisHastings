@@ -17,3 +17,22 @@ test_invalidinputs = test_that("test for invalid inputs", {
   expect_error(rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = matrix(rep(1, 16), nrow = 8)))
   expect_error(rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = matrix(rep(1, 16), nrow = 2)))
 })
+
+test_reproducibility = test_that("test reproducibility of samples", {
+  targetDensity = function(x){
+    return(ifelse(x<0,0,exp(-x)))
+  }
+  #test with same seed, same sigma
+  y1 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
+  y2 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
+  expect_true(identical(y1, y2))
+
+  #test with same seed, different sigma
+  y3 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = matrix(rep(5, 16), nrow = 4))
+  expect_true(!identical(y3, y2))
+
+  #test with different seed
+  y4 = rmultivariatemh(targetDensity, seed=30, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
+  expect_true(!identical(y4, y1))
+})
+
