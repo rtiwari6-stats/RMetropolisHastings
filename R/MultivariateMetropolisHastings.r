@@ -4,9 +4,9 @@
 #' @param targetdensity This is the probability density function from which sampling will be done. This should be a function of x.
 #' @param candidatedensity This is the candidate generation density to be used
 #' @param numIter The number of samples to generate
-#' @param initial The staring value for the algorithm
+#' @param initial_vec The staring vector for the algorithm
 #' @param plot plot the values of x
-#' @param sigma standard deviation of the candidate generation density
+#' @param sigma_matrix standard deviation matrix of the candidate generation density
 #' @param seed seed for generation of random samples
 #'
 #' @return a vector of samples
@@ -14,7 +14,7 @@
 #'
 #' @examples
 rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
-                         numIter = 1000, mean_vec = NULL, plot = FALSE, sigma_matrix = NULL, seed = 1001L){
+                         numIter = 1000, initial_vec = NULL, plot = FALSE, sigma_matrix = NULL, seed = 1001L){
   candidatedensity = match.arg(candidatedensity)
   #check sigma
   if(is.null(sigma_matrix)){
@@ -27,8 +27,8 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   if(is.null(targetdensity)){
     stop("Target density function must be provided")
   }
-  #check mean_vec and sigma_matrix compatability
-  if(nrow(sigma_matrix) != length(mean_vec) | ncol(sigma_matrix) != length(mean_vec)){
-    stop("number of rows and columns of sigma matrix must equal length of mean vector")
+  #check initial vector and sigma matrix compatibility
+  if(nrow(sigma_matrix) != length(initial_vec) | ncol(sigma_matrix) != length(initial_vec)){
+    stop("number of rows and columns of sigma matrix must equal length of initial vector")
   }
 }
