@@ -9,7 +9,7 @@
 #' @param sigma_matrix standard deviation matrix of the candidate generation density
 #' @param seed seed for generation of random samples
 #'
-#' @return a vector of samples
+#' @return a matrix of sample vectors
 #' @export
 #'
 #' @examples
