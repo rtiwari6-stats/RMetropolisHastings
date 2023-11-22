@@ -29,6 +29,6 @@ rmultivariatemh = function(targetdensity,  candidatedensity = c("Normal"),
   }
   #check mean_vec and sigma_matrix compatability
   if(nrow(sigma_matrix) != length(mean_vec) | ncol(sigma_matrix) != length(mean_vec)){
-    stop("Target density function must be provided")
+    stop("number of rows and columns of sigma matrix must equal length of mean vector")
   }
 }
