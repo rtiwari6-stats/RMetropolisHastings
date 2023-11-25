@@ -16,9 +16,10 @@ cppunivariatemh(
 )
 }
 \arguments{
-\item{targetdensity}{This is the probability density function from which sampling will be done. This should be a function of x.}
+\item{targetdensity}{This is the probability density function from which sampling will be done. This should be one of the supported values:
+"Exponential"- Exponential distribution with lambda=1.}
 
-\item{candidatedensity}{This is the candidate generation density to be used}
+\item{candidatedensity}{This is the candidate generation density to be used. This should be one of the supported values}
 
 \item{numIter}{The number of samples to generate}
 

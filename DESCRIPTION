@@ -8,7 +8,11 @@ Description: This package simulates samples from a target probability distributi
 License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
-Imports: Rcpp (>= 1.0.9)
+Imports: 
+    MASS,
+    Matrix,
+    Rcpp (>= 1.0.9),
+    stats
 LinkingTo: 
     Rcpp,
     RcppArmadillo

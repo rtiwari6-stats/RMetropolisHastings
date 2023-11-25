@@ -1,6 +1,11 @@
 test_invalidinputs = test_that("test for invalid inputs", {
-  targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
+  #need a target density that generates a single probability for a vector x
+  targetDensity_mv = function(x){
+    prob = rep(0, length(x))
+    for(i in 1:length(x)){
+      prob[i] = ifelse(x[i]<0,0,exp(-x))
+    }
+    return(max(prob))
   }
   #bad sigma matrix
   expect_error(rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = diag(-1, nrow = 4)))
@@ -18,20 +23,40 @@ test_invalidinputs = test_that("test for invalid inputs", {
 })
 
 test_reproducibility = test_that("test reproducibility of samples", {
-  targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
+  skip_if_not_installed("Matrix") # need this for nearPD function
+
+  #need a target density that generates a single probability for a vector x
+  targetDensity_mv = function(x){
+    prob = rep(0, length(x))
+    for(i in 1:length(x)){
+      prob[i] = ifelse(x[i]<0,0,exp(-x))
+    }
+    return(max(prob))
   }
+
+  #construct a PD sigma matrix
+  n = 4
+  M = matrix(runif(n*n), ncol=n)
+  sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+  initial_vec = c(0.5, 1.5, -1.65, 1.45)
   #test with same seed, same sigma
-  y1 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
-  y2 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
+  y1 = rmultivariatemh(targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+  y2 = rmultivariatemh(targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
   expect_true(identical(y1, y2))
 
   #test with same seed, different sigma
-  y3 = rmultivariatemh(targetDensity, initial_vec = rep(1, 4), sigma_matrix = matrix(rep(5, 16), nrow = 4))
+  #construct a different PD sigma matrix
+  n = 4
+  M = matrix(runif(n*n), ncol=n)
+  sigma_matrix_1 = as.matrix(Matrix::nearPD(M)$mat)
+  y3 = rmultivariatemh(targetDensity_mv,
+                       initial_vec = initial_vec,
+                       sigma_matrix = sigma_matrix_1)
   expect_true(!identical(y3, y2))
 
   #test with different seed
-  y4 = rmultivariatemh(targetDensity, seed=30, initial_vec = rep(1, 4), sigma_matrix = diag(1, nrow = 4))
+  y4 = rmultivariatemh(targetDensity_mv, seed=30,
+                       initial_vec = initial_vec, sigma_matrix = sigma_matrix)
   expect_true(!identical(y4, y1))
 })
 
