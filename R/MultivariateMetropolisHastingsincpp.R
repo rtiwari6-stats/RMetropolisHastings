@@ -15,19 +15,23 @@
 #'
 #' @examples
 cppmultivariatemh = function(targetdensity=c("Exponential"),  candidatedensity=c("Normal"),
-                           numIter=1000, initial=0.0, plot=FALSE, sigma=1, seed = 1001L){
+                           numIter=1000, initial=NULL, plot=FALSE, sigma=NULL, seed = 1001L){
   candidatedensity = match.arg(candidatedensity)
   targetdensity = match.arg(targetdensity)
   #check sigma
-  if(is.null(sigma)){
-    stop('sigma must not be null')
+  if(is.null(sigma_matrix)){
+    stop('sigma matrix must not be null')
   }
-  if(sigma <= 0){
-    stop("sigma must be positive")
+  if(any(diag(sigma_matrix) < 0)){
+    stop("diagonal of sigma matrix must be positive")
   }
   #check target density
   if(is.null(targetdensity)){
     stop("Target density function must be provided")
+  }
+  #check initial vector and sigma matrix compatibility
+  if(nrow(sigma_matrix) != length(initial_vec) | ncol(sigma_matrix) != length(initial_vec)){
+    stop("number of rows and columns of sigma matrix must equal length of initial vector")
   }
 
   #call the cpp function
@@ -35,7 +39,7 @@ cppmultivariatemh = function(targetdensity=c("Exponential"),  candidatedensity=c
   #assume normal candidate generation density
   x = NULL
   if(targetdensity == "Exponential"){
-    x =   univariatemhexpnormalcpp(numIter, initial, sigma)
+    x =   multivariatemhexpnormalcpp(numIter, initial_vec, sigma_matrix)
   }
 
   #plot if asked
