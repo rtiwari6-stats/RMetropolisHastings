@@ -29,17 +29,41 @@ Metropolis-Hastings (M-H) algorithm is a markov chain based approach that provid
 
 You can install the development version of RMetropolisHastings from [GitHub](https://github.com/rtiwari6-stats/RMetropolisHastings) with:
 
-``` r
-# install.packages("devtools")
-devtools::install_github("rtiwari6-stats/RMetropolisHastings")
+```{r}
+if (!require("devtools")){
+  install.packages("devtools") 
+}
+if (!require("RMetropolisHastings")){
+  devtools::install_github("rtiwari6-stats/RMetropolisHastings")
+}
+
 ```
 
-## Example
 
-This is a basic example which shows you how to solve a common problem:
+## Examples
+
+This is an example which shows you how to generate 1000 univariate samples:
 
 ```{r example}
-##library(RMetropolisHastings)
-## basic example code
+library(RMetropolisHastings)
+targetDensity = function(x){
+    return(ifelse(x<0,0,exp(-x)))
+}
+start = 1.25
+y1 = runivariatemh(targetDensity, sigma=1, initial = start, plot = TRUE)
+#print a few samples
+y1[1:5]
+```
+
+
+This is an example which shows you how to generate 1000 univariate samples using rcpp:
+
+```{r}
+library(RMetropolisHastings)
+#does not take a userdefined targetDensity
+start = -1.25
+y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start, plot = TRUE)
+#print a few samples
+y1[1:5]
 ```
 
