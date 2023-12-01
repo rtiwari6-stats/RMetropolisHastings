@@ -1,5 +1,7 @@
 export(runivariatemh)
 export(cppunivariatemh)
+export(rmultivariatemh)
+export(cppmultivariatemh)
 export(hello)
 export(rcpp_hello)
 importFrom(Rcpp, evalCpp)
