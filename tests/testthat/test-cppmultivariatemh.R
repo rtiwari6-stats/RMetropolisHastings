@@ -1,41 +1,41 @@
 test_invalidinputs = test_that("test for invalid inputs", {
-  #bad sigma
-  expect_error(cppunivariatemh(sigma=-1))
-  expect_error(cppunivariatemh(sigma = NULL))
-  expect_error(cppunivariatemh(sigma = 0))
+  #bad sigma matrix
+  expect_error(cppmultivariatemh(initial_vec = rep(1, 4), sigma_matrix = diag(-1, nrow = 4)))
+  expect_error(cppmultivariatemh(initial_vec = rep(1, 4), sigma_matrix = NULL))
 
   #bad candidate pdf
-  expect_error(cppunivariatemh(candidatedensity = "exp", sigma = 1))
+  expect_error(cppmultivariatemh(candidatedensity = "exp", initial_vec = rep(1, 4), sigma_matrix = matrix(rep(1, 16), nrow = 4)))
 
-  #bad targetDensity
-  expect_error(cppunivariatemh(targetdensity = "Normal", sigma = 1))
-
+  #non-compatible initial vector and sigma matrix
+  expect_error(cppmultivariatemh(initial_vec = rep(1, 4), sigma_matrix = matrix(rep(1, 16), nrow = 8)))
+  expect_error(cppmultivariatemh(initial_vec = rep(1, 4), sigma_matrix = matrix(rep(1, 16), nrow = 2)))
 })
 
 test_reproducibility = test_that("test reproducibility of samples", {
-  targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
-  }
+  skip_if_not_installed("Matrix") # need this for nearPD function
+
+  #construct a PD sigma matrix
+  n = 4
+  M = matrix(runif(n*n), ncol=n)
+  sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+  initial_vec = c(0.5, 1.5, -1.65, 1.45)
   #test with same seed, same sigma
-  y1 = cppunivariatemh(sigma=1)
-  y2 = cppunivariatemh(sigma=1)
+  y1 = cppmultivariatemh(initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+  y2 = cppmultivariatemh(initial_vec = initial_vec, sigma_matrix = sigma_matrix)
   expect_true(identical(y1, y2))
 
   #test with same seed, different sigma
-  y3 = cppunivariatemh(sigma=10)
+  #construct a different PD sigma matrix
+  n = 4
+  M = matrix(runif(n*n), ncol=n)
+  sigma_matrix_1 = as.matrix(Matrix::nearPD(M)$mat)
+  y3 = cppmultivariatemh(initial_vec = initial_vec,
+                       sigma_matrix = sigma_matrix_1)
   expect_true(!identical(y3, y2))
 
   #test with different seed
-  y4 = cppunivariatemh(seed=30, sigma=1)
+  y4 = cppmultivariatemh(seed=30,
+                       initial_vec = initial_vec, sigma_matrix = sigma_matrix)
   expect_true(!identical(y4, y1))
 })
 
-test_correctness = test_that("test correctness of samples (best effort)",{
-  targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
-  }
-  start = 1.25
-  y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start)
-  expect_equal(y1[1], start)
-  expect_equal(length(y1), 1000)
-})
