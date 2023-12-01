@@ -34,7 +34,7 @@ if (!require("devtools")){
 #> Warning: package 'usethis' was built under R version 4.2.3
 library(devtools)
 devtools::install_github("rtiwari6-stats/RMetropolisHastings")
-#> Skipping install of 'RMetropolisHastings' from a github remote, the SHA1 (a9487ea0) has not changed since last install.
+#> Skipping install of 'RMetropolisHastings' from a github remote, the SHA1 (bdd7b485) has not changed since last install.
 #>   Use `force = TRUE` to force installation
 ```
 
@@ -137,3 +137,9 @@ y1 = cppmultivariatemh(targetdensity = "Exponential", initial_vec = initial_vec,
 y1[1:5]
 #> [1] -1.1785860 -1.0394855 -1.3177983 -0.6420437 -0.6420437
 ```
+
+## References
+
+Understanding the Metropolis-Hastings Algorithm. Siddhartha Chib and
+Edward Greenberg. The American Statistician , Nov., 1995, Vol. 49, No. 4
+(Nov., 1995), pp. 327-335

@@ -119,3 +119,7 @@ y1 = cppmultivariatemh(targetdensity = "Exponential", initial_vec = initial_vec,
 y1[1:5]
 ```
 
+# References
+
+Understanding the Metropolis-Hastings Algorithm.  Siddhartha Chib and Edward Greenberg. The American Statistician , Nov., 1995, Vol. 49, No. 4 (Nov., 1995), pp. 327-335
+
