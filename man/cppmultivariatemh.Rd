@@ -10,7 +10,6 @@ cppmultivariatemh(
   candidatedensity = c("Normal"),
   numIter = 1000,
   initial_vec = NULL,
-  plot = FALSE,
   sigma_matrix = NULL,
   seed = 1001L
 )
@@ -24,8 +23,6 @@ cppmultivariatemh(
 \item{numIter}{The number of samples to generate}
 
 \item{initial_vec}{The staring vector for the algorithm}
-
-\item{plot}{plot the values of x}
 
 \item{sigma_matrix}{standard deviation matrix of the candidate generation density}
 
