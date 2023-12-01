@@ -2,7 +2,7 @@
 #' Sample data from a multivariate distribution using the Metropolis-Hastings Algorithm using a cpp implementation.
 #' The use of this function is recommended when the target density function is in the predefined set of densities in the function's API.
 #' @param targetdensity This is the probability density function from which sampling will be done. This should be one of the supported values:
-#' "Exponential"- Exponential distribution with lambda=1.
+#' "Exponential"- Exponential distribution.
 #' @param candidatedensity This is the candidate generation density to be used. This should be one of the supported values
 #' @param numIter The number of samples to generate
 #' @param initial_vec The staring vector for the algorithm
@@ -15,7 +15,8 @@
 #'
 #' @examples
 cppmultivariatemh = function(targetdensity=c("Exponential"),  candidatedensity=c("Normal"),
-                           numIter=1000, initial=NULL, plot=FALSE, sigma=NULL, seed = 1001L){
+                           numIter=1000, initial_vec=NULL,
+                           plot=FALSE, sigma_matrix=NULL, seed = 1001L){
   candidatedensity = match.arg(candidatedensity)
   targetdensity = match.arg(targetdensity)
   #check sigma

@@ -11,6 +11,43 @@ Rcpp::Rostream<true>&  Rcpp::Rcout = Rcpp::Rcpp_cout_get();
 Rcpp::Rostream<false>& Rcpp::Rcerr = Rcpp::Rcpp_cerr_get();
 #endif
 
+// targetDensityMultivarExp
+double targetDensityMultivarExp(const arma::rowvec& x);
+RcppExport SEXP _RMetropolisHastings_targetDensityMultivarExp(SEXP xSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type x(xSEXP);
+    rcpp_result_gen = Rcpp::wrap(targetDensityMultivarExp(x));
+    return rcpp_result_gen;
+END_RCPP
+}
+// mvrnormArma
+arma::mat mvrnormArma(int n, arma::rowvec mu, arma::mat sigma);
+RcppExport SEXP _RMetropolisHastings_mvrnormArma(SEXP nSEXP, SEXP muSEXP, SEXP sigmaSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< int >::type n(nSEXP);
+    Rcpp::traits::input_parameter< arma::rowvec >::type mu(muSEXP);
+    Rcpp::traits::input_parameter< arma::mat >::type sigma(sigmaSEXP);
+    rcpp_result_gen = Rcpp::wrap(mvrnormArma(n, mu, sigma));
+    return rcpp_result_gen;
+END_RCPP
+}
+// multivariatemhexpnormalcpp
+arma::mat multivariatemhexpnormalcpp(const arma::vec& numIter, const arma::rowvec& initial_vec, const arma::mat& sigma_matrix);
+RcppExport SEXP _RMetropolisHastings_multivariatemhexpnormalcpp(SEXP numIterSEXP, SEXP initial_vecSEXP, SEXP sigma_matrixSEXP) {
+BEGIN_RCPP
+    Rcpp::RObject rcpp_result_gen;
+    Rcpp::RNGScope rcpp_rngScope_gen;
+    Rcpp::traits::input_parameter< const arma::vec& >::type numIter(numIterSEXP);
+    Rcpp::traits::input_parameter< const arma::rowvec& >::type initial_vec(initial_vecSEXP);
+    Rcpp::traits::input_parameter< const arma::mat& >::type sigma_matrix(sigma_matrixSEXP);
+    rcpp_result_gen = Rcpp::wrap(multivariatemhexpnormalcpp(numIter, initial_vec, sigma_matrix));
+    return rcpp_result_gen;
+END_RCPP
+}
 // rcpp_hello
 List rcpp_hello();
 RcppExport SEXP _RMetropolisHastings_rcpp_hello() {
@@ -47,6 +84,9 @@ END_RCPP
 }
 
 static const R_CallMethodDef CallEntries[] = {
+    {"_RMetropolisHastings_targetDensityMultivarExp", (DL_FUNC) &_RMetropolisHastings_targetDensityMultivarExp, 1},
+    {"_RMetropolisHastings_mvrnormArma", (DL_FUNC) &_RMetropolisHastings_mvrnormArma, 3},
+    {"_RMetropolisHastings_multivariatemhexpnormalcpp", (DL_FUNC) &_RMetropolisHastings_multivariatemhexpnormalcpp, 3},
     {"_RMetropolisHastings_rcpp_hello", (DL_FUNC) &_RMetropolisHastings_rcpp_hello, 0},
     {"_RMetropolisHastings_targetDensityUnivarExp", (DL_FUNC) &_RMetropolisHastings_targetDensityUnivarExp, 1},
     {"_RMetropolisHastings_univariatemhexpnormalcpp", (DL_FUNC) &_RMetropolisHastings_univariatemhexpnormalcpp, 3},
