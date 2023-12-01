@@ -32,10 +32,10 @@ if (!require("devtools")){
 #> Warning: package 'devtools' was built under R version 4.2.3
 #> Loading required package: usethis
 #> Warning: package 'usethis' was built under R version 4.2.3
-if (!require("RMetropolisHastings")){
-  devtools::install_github("rtiwari6-stats/RMetropolisHastings")
-}
-#> Loading required package: RMetropolisHastings
+library(devtools)
+devtools::install_github("rtiwari6-stats/RMetropolisHastings")
+#> Skipping install of 'RMetropolisHastings' from a github remote, the SHA1 (a9487ea0) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 ## Examples
@@ -76,4 +76,64 @@ y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start, pl
 #print a few samples
 y1[1:5]
 #> [1] -1.25  0.00  0.00  0.00  0.00
+```
+
+This is an example which shows you how to generate 1000 multivariate
+samples:
+
+``` r
+if (!require("Matrix")){
+  install.packages("Matrix") 
+}
+#> Loading required package: Matrix
+#> Warning: package 'Matrix' was built under R version 4.2.3
+if (!require("stats")){
+  install.packages("stats") 
+}
+library(RMetropolisHastings)
+
+n = 4
+M = matrix(runif(n*n), ncol=n)
+sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+initial_vec = rnorm(n)
+
+#need a target density that generates a single probability for a vector x
+targetDensity_mv = function(x){
+    prob = rep(0, length(x))
+    for(i in 1:length(x)){
+      prob[i] = ifelse(x[i]<0,0,exp(-x))
+    }
+    return(max(prob))
+}
+  
+y1 = rmultivariatemh(targetdensity=targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+#print some samples
+y1[1:5]
+#> [1] 1.2869276 1.2869276 0.7146032 0.7146032 1.3378602
+```
+
+This is an example which shows you how to generate 1000 multivariate
+samples using rcpp:
+
+``` r
+library(RMetropolisHastings)
+if (!require("Matrix")){
+  install.packages("Matrix") 
+}
+if (!require("stats")){
+  install.packages("stats") 
+}
+library(Matrix)
+library(stats)
+n = 4
+M = matrix(runif(n*n), ncol=n)
+sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+initial_vec = rnorm(n)
+
+#does not take a userdefined targetDensity
+y1 = cppmultivariatemh(targetdensity = "Exponential", initial_vec = initial_vec, 
+                     sigma_matrix = sigma_matrix)
+#print some samples
+y1[1:5]
+#> [1] -1.1785860 -1.0394855 -1.3177983 -0.6420437 -0.6420437
 ```

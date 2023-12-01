@@ -33,10 +33,8 @@ You can install the development version of RMetropolisHastings from [GitHub](htt
 if (!require("devtools")){
   install.packages("devtools") 
 }
-if (!require("RMetropolisHastings")){
-  devtools::install_github("rtiwari6-stats/RMetropolisHastings")
-}
-
+library(devtools)
+devtools::install_github("rtiwari6-stats/RMetropolisHastings")
 ```
 
 
@@ -64,6 +62,60 @@ library(RMetropolisHastings)
 start = -1.25
 y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start, plot = TRUE)
 #print a few samples
+y1[1:5]
+```
+
+This is an example which shows you how to generate 1000 multivariate samples:
+
+```{r}
+if (!require("Matrix")){
+  install.packages("Matrix") 
+}
+if (!require("stats")){
+  install.packages("stats") 
+}
+library(RMetropolisHastings)
+
+n = 4
+M = matrix(runif(n*n), ncol=n)
+sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+initial_vec = rnorm(n)
+
+#need a target density that generates a single probability for a vector x
+targetDensity_mv = function(x){
+    prob = rep(0, length(x))
+    for(i in 1:length(x)){
+      prob[i] = ifelse(x[i]<0,0,exp(-x))
+    }
+    return(max(prob))
+}
+  
+y1 = rmultivariatemh(targetdensity=targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+#print some samples
+y1[1:5]
+```
+
+This is an example which shows you how to generate 1000 multivariate samples using rcpp:
+
+```{r}
+library(RMetropolisHastings)
+if (!require("Matrix")){
+  install.packages("Matrix") 
+}
+if (!require("stats")){
+  install.packages("stats") 
+}
+library(Matrix)
+library(stats)
+n = 4
+M = matrix(runif(n*n), ncol=n)
+sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
+initial_vec = rnorm(n)
+
+#does not take a userdefined targetDensity
+y1 = cppmultivariatemh(targetdensity = "Exponential", initial_vec = initial_vec, 
+                     sigma_matrix = sigma_matrix)
+#print some samples
 y1[1:5]
 ```
 
