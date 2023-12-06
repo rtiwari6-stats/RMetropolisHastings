@@ -22,7 +22,7 @@ knitr::opts_chunk$set(
 
 # Description
 
-Metropolis-Hastings (M-H) algorithm is a markov chain based approach that provides a way to generate samples from a distribution from which direct sampling is difficult. It does this by simulating samples from a different distribution from which direct sampling is easier and accepting those samples with a probability. We will build a R package that implements the M-H algorithm.   Our package offers support for univariate and multivariate sampling using the M-H algorithm.
+Metropolis-Hastings (M-H) algorithm is a markov chain based approach that provides a way to generate samples from a distribution from which direct sampling is difficult. It does this by simulating samples from a different distribution from which direct sampling is easier, and accepting those samples with a probability. We will build a R package that implements the M-H algorithm. Our package offers support for univariate and multivariate sampling using the M-H algorithm.
 
 
 ## Installation
@@ -45,10 +45,10 @@ This is an example which shows you how to generate 1000 univariate samples:
 ```{r example}
 library(RMetropolisHastings)
 targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
+    return(ifelse(x<0, 0, exp(-x)))
 }
 start = 1.25
-y1 = runivariatemh(targetDensity, sigma=1, initial = start, plot = TRUE)
+y1 = runivariatemh(targetDensity, sigma = 1, initial = start, plot = TRUE)
 #print a few samples
 y1[1:5]
 ```
@@ -60,7 +60,7 @@ This is an example which shows you how to generate 1000 univariate samples using
 library(RMetropolisHastings)
 #does not take a userdefined targetDensity
 start = -1.25
-y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start, plot = TRUE)
+y1 = cppunivariatemh(targetdensity = "Exponential", sigma = 1, initial = start, plot = TRUE)
 #print a few samples
 y1[1:5]
 ```
@@ -77,7 +77,7 @@ if (!require("stats")){
 library(RMetropolisHastings)
 
 n = 4
-M = matrix(runif(n*n), ncol=n)
+M = matrix(runif(n * n), ncol = n)
 sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
 initial_vec = rnorm(n)
 
@@ -85,12 +85,12 @@ initial_vec = rnorm(n)
 targetDensity_mv = function(x){
     prob = rep(0, length(x))
     for(i in 1:length(x)){
-      prob[i] = ifelse(x[i]<0,0,exp(-x))
+      prob[i] = ifelse(x[i] < 0, 0, exp(-x))
     }
     return(max(prob))
 }
   
-y1 = rmultivariatemh(targetdensity=targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+y1 = rmultivariatemh(targetdensity = targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
 #print some samples
 y1[1:5]
 ```
@@ -108,7 +108,7 @@ if (!require("stats")){
 library(Matrix)
 library(stats)
 n = 4
-M = matrix(runif(n*n), ncol=n)
+M = matrix(runif(n * n), ncol = n)
 sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
 initial_vec = rnorm(n)
 
