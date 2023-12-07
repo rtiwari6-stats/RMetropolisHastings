@@ -34,41 +34,8 @@ if (!require("devtools")){
 #> Warning: package 'usethis' was built under R version 4.2.3
 library(devtools)
 devtools::install_github("rtiwari6-stats/RMetropolisHastings")
-#> Downloading GitHub repo rtiwari6-stats/RMetropolisHastings@HEAD
-#> Rcpp         (1.0.9      -> 1.0.11    ) [CRAN]
-#> RcppArmad... (0.12.6.6.0 -> 0.12.6.6.1) [CRAN]
-#> Installing 2 packages: Rcpp, RcppArmadillo
-#> Installing packages into 'C:/Users/slkoe/AppData/Local/R/win-library/4.2'
-#> (as 'lib' is unspecified)
-#> 
-#>   There is a binary version available but the source version is later:
-#>                   binary     source needs_compilation
-#> RcppArmadillo 0.12.6.6.0 0.12.6.6.1              TRUE
-#> 
-#> package 'Rcpp' successfully unpacked and MD5 sums checked
-#> Warning: cannot remove prior installation of package 'Rcpp'
-#> Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
-#> C:\Users\slkoe\AppData\Local\R\win-library\4.2\00LOCK\Rcpp\libs\x64\Rcpp.dll
-#> to C:\Users\slkoe\AppData\Local\R\win-library\4.2\Rcpp\libs\x64\Rcpp.dll:
-#> Permission denied
-#> Warning: restored 'Rcpp'
-#> 
-#> The downloaded binary packages are in
-#>  C:\Users\slkoe\AppData\Local\Temp\RtmpYh1RAN\downloaded_packages
-#> installing the source package 'RcppArmadillo'
-#> ── R CMD build ─────────────────────────────────────────────────────────────────
-#>       ✔  checking for file 'C:\Users\slkoe\AppData\Local\Temp\RtmpYh1RAN\remotes62058972af5\rtiwari6-stats-RMetropolisHastings-5f8a07a/DESCRIPTION' (612ms)
-#>       ─  preparing 'RMetropolisHastings': (788ms)
-#>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
-#> ─  cleaning src
-#>       ─  checking for LF line-endings in source and make files and shell scripts
-#>       ─  checking for empty or unneeded directories
-#>      Omitted 'LazyData' from DESCRIPTION
-#>       ─  building 'RMetropolisHastings_0.1.0.tar.gz'
-#>      
-#> 
-#> Installing package into 'C:/Users/slkoe/AppData/Local/R/win-library/4.2'
-#> (as 'lib' is unspecified)
+#> Skipping install of 'RMetropolisHastings' from a github remote, the SHA1 (5f8a07ae) has not changed since last install.
+#>   Use `force = TRUE` to force installation
 ```
 
 ## Examples
@@ -175,3 +142,12 @@ y1[1:5]
 Understanding the Metropolis-Hastings Algorithm. Siddhartha Chib and
 Edward Greenberg. The American Statistician , Nov., 1995, Vol. 49, No. 4
 (Nov., 1995), pp. 327-335
+
+# Contributions
+
+Rohan Tiwari’s contributions include github setup, univariate
+implementation and tests in R and cpp, assistance with multivariate R
+and cpp, and setup github actions for code coverage and “R CMD Check”.
+
+Skylar Liu’s contributions include multivariate implementation and tests
+in R and cpp, and assistance to Rohan with the readme file.

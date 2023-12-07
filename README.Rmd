@@ -123,3 +123,9 @@ y1[1:5]
 
 Understanding the Metropolis-Hastings Algorithm.  Siddhartha Chib and Edward Greenberg. The American Statistician , Nov., 1995, Vol. 49, No. 4 (Nov., 1995), pp. 327-335
 
+# Contributions
+
+Rohan Tiwari's contributions include github setup, univariate implementation and tests in R and cpp, assistance with multivariate R and cpp, and setup github actions for code coverage and "R CMD Check".
+
+Skylar Liu's contributions include multivariate implementation and tests in R and cpp, and assistance to Rohan with the readme file.
+
