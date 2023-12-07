@@ -14,7 +14,7 @@
 Metropolis-Hastings (M-H) algorithm is a markov chain based approach
 that provides a way to generate samples from a distribution from which
 direct sampling is difficult. It does this by simulating samples from a
-different distribution from which direct sampling is easier and
+different distribution from which direct sampling is easier, and
 accepting those samples with a probability. We will build a R package
 that implements the M-H algorithm. Our package offers support for
 univariate and multivariate sampling using the M-H algorithm.
@@ -34,8 +34,41 @@ if (!require("devtools")){
 #> Warning: package 'usethis' was built under R version 4.2.3
 library(devtools)
 devtools::install_github("rtiwari6-stats/RMetropolisHastings")
-#> Skipping install of 'RMetropolisHastings' from a github remote, the SHA1 (bdd7b485) has not changed since last install.
-#>   Use `force = TRUE` to force installation
+#> Downloading GitHub repo rtiwari6-stats/RMetropolisHastings@HEAD
+#> Rcpp         (1.0.9      -> 1.0.11    ) [CRAN]
+#> RcppArmad... (0.12.6.6.0 -> 0.12.6.6.1) [CRAN]
+#> Installing 2 packages: Rcpp, RcppArmadillo
+#> Installing packages into 'C:/Users/slkoe/AppData/Local/R/win-library/4.2'
+#> (as 'lib' is unspecified)
+#> 
+#>   There is a binary version available but the source version is later:
+#>                   binary     source needs_compilation
+#> RcppArmadillo 0.12.6.6.0 0.12.6.6.1              TRUE
+#> 
+#> package 'Rcpp' successfully unpacked and MD5 sums checked
+#> Warning: cannot remove prior installation of package 'Rcpp'
+#> Warning in file.copy(savedcopy, lib, recursive = TRUE): problem copying
+#> C:\Users\slkoe\AppData\Local\R\win-library\4.2\00LOCK\Rcpp\libs\x64\Rcpp.dll
+#> to C:\Users\slkoe\AppData\Local\R\win-library\4.2\Rcpp\libs\x64\Rcpp.dll:
+#> Permission denied
+#> Warning: restored 'Rcpp'
+#> 
+#> The downloaded binary packages are in
+#>  C:\Users\slkoe\AppData\Local\Temp\RtmpYh1RAN\downloaded_packages
+#> installing the source package 'RcppArmadillo'
+#> ── R CMD build ─────────────────────────────────────────────────────────────────
+#>       ✔  checking for file 'C:\Users\slkoe\AppData\Local\Temp\RtmpYh1RAN\remotes62058972af5\rtiwari6-stats-RMetropolisHastings-5f8a07a/DESCRIPTION' (612ms)
+#>       ─  preparing 'RMetropolisHastings': (788ms)
+#>    checking DESCRIPTION meta-information ...  ✔  checking DESCRIPTION meta-information
+#> ─  cleaning src
+#>       ─  checking for LF line-endings in source and make files and shell scripts
+#>       ─  checking for empty or unneeded directories
+#>      Omitted 'LazyData' from DESCRIPTION
+#>       ─  building 'RMetropolisHastings_0.1.0.tar.gz'
+#>      
+#> 
+#> Installing package into 'C:/Users/slkoe/AppData/Local/R/win-library/4.2'
+#> (as 'lib' is unspecified)
 ```
 
 ## Examples
@@ -46,10 +79,10 @@ samples:
 ``` r
 library(RMetropolisHastings)
 targetDensity = function(x){
-    return(ifelse(x<0,0,exp(-x)))
+    return(ifelse(x<0, 0, exp(-x)))
 }
 start = 1.25
-y1 = runivariatemh(targetDensity, sigma=1, initial = start, plot = TRUE)
+y1 = runivariatemh(targetDensity, sigma = 1, initial = start, plot = TRUE)
 ```
 
 <img src="man/figures/README-example-1.png" width="100%" /><img src="man/figures/README-example-2.png" width="100%" />
@@ -67,7 +100,7 @@ samples using rcpp:
 library(RMetropolisHastings)
 #does not take a userdefined targetDensity
 start = -1.25
-y1 = cppunivariatemh(targetdensity = "Exponential", sigma=1, initial = start, plot = TRUE)
+y1 = cppunivariatemh(targetdensity = "Exponential", sigma = 1, initial = start, plot = TRUE)
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" /><img src="man/figures/README-unnamed-chunk-3-2.png" width="100%" />
@@ -86,14 +119,13 @@ if (!require("Matrix")){
   install.packages("Matrix") 
 }
 #> Loading required package: Matrix
-#> Warning: package 'Matrix' was built under R version 4.2.3
 if (!require("stats")){
   install.packages("stats") 
 }
 library(RMetropolisHastings)
 
 n = 4
-M = matrix(runif(n*n), ncol=n)
+M = matrix(runif(n * n), ncol = n)
 sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
 initial_vec = rnorm(n)
 
@@ -101,12 +133,12 @@ initial_vec = rnorm(n)
 targetDensity_mv = function(x){
     prob = rep(0, length(x))
     for(i in 1:length(x)){
-      prob[i] = ifelse(x[i]<0,0,exp(-x))
+      prob[i] = ifelse(x[i] < 0, 0, exp(-x))
     }
     return(max(prob))
 }
   
-y1 = rmultivariatemh(targetdensity=targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
+y1 = rmultivariatemh(targetdensity = targetDensity_mv, initial_vec = initial_vec, sigma_matrix = sigma_matrix)
 #print some samples
 y1[1:5]
 #> [1] 1.2869276 1.2869276 0.7146032 0.7146032 1.3378602
@@ -126,7 +158,7 @@ if (!require("stats")){
 library(Matrix)
 library(stats)
 n = 4
-M = matrix(runif(n*n), ncol=n)
+M = matrix(runif(n * n), ncol = n)
 sigma_matrix = as.matrix(Matrix::nearPD(M)$mat)
 initial_vec = rnorm(n)
 
@@ -138,7 +170,7 @@ y1[1:5]
 #> [1] -1.1785860 -1.0394855 -1.3177983 -0.6420437 -0.6420437
 ```
 
-## References
+# References
 
 Understanding the Metropolis-Hastings Algorithm. Siddhartha Chib and
 Edward Greenberg. The American Statistician , Nov., 1995, Vol. 49, No. 4
